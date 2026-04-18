@@ -1,0 +1,60 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $MainWindow : Adw.ApplicationWindow {
+  default-width: 800;
+  default-height: 600;
+  title: _("Style Switcher Example");
+
+  content: Box {
+    orientation: vertical;
+
+    [top]
+    Adw.HeaderBar {
+      [end]
+      MenuButton {
+        icon-name: "open-menu-symbolic";
+        tooltip-text: _("Main Menu");
+        primary: true;
+        popover: Gtk.PopoverMenu popover_menu {
+            menu-model: primary_menu;
+          };
+      }
+    }
+
+    Adw.StatusPage {
+      title: _("Style Switcher");
+      icon-name: "night-light-symbolic";
+      description: _("Change Color Scheme with ease!");
+
+      Box {
+        orientation: vertical;
+
+        LinkButton {
+          label: _("Human Interface Guidelines");
+          uri: "https://developer.gnome.org/hig/patterns/containers/header-bars.html";
+        }
+      }
+    }
+  };
+}
+
+// Menu Definitions
+menu primary_menu {
+  section {
+    item {
+      custom: "style-switcher";
+    }
+  }
+  section {
+    item {
+      label: _("Keyboard Shortcuts");
+      action: "app.shortcuts";
+    }
+
+    item {
+      label: _("About App");
+      action: "app.about";
+    }
+  }
+}
